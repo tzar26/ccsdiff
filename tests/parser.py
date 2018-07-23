@@ -1,4 +1,6 @@
-from cssdiff import normalize_css, get__blocks
+from parser import (
+	normalize_css, get__blocks, get__genom, add_rules, get__css_obj
+)
 
 
 class TestGetBlocks:
@@ -79,5 +81,31 @@ class TestNormalizeCSS:
 
 
 class TestGetGenom:
+	def test__get__genom1(self):
+		data = '.kek{rul:kek;}'
+		selector, rules = get__genom(data)
+		expected_selector, expected_rules = '.kek', {'rul': ['kek']}
+		assert selector == expected_selector
+		assert rule.get('rul') and rule['rul'] == expected_rules['rul']
+
+	def test__get__genom1(self):
+		data = '.kek{rul:kek;rul:lol;rul2:azaza;}'
+		selector, rules = get__genom(data)
+		expected_selector, expected_rules = '.kek', {'rul': ['kek', 'lol'], 'rul2': 'azaza'}
+		assert selector == expected_selector
+		assert rules.get('rul')
+		for item in rules['rul']:
+			assert item in expected_rules['rul']
+		for item in expected_rules['rul']:
+			assert item in rules['rul']
+		assert rules.get('rul2') and rules['rul2'] == expected_rules['rul2']
+
+
+class TestAddRules:
+	def test1(self):
+		pass
+
+
+class TestGetCssObj:
 	def test1(self):
 		pass
